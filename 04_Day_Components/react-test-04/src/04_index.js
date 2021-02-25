@@ -125,6 +125,50 @@ const RandomBgDiv = ({ bgStr }) => (
   <div style={{background: bgStr}}>{ bgStr }</div>
 )
 
+
+const skills = [
+  ['HTML', 10],
+  ['CSS', 7],
+  ['JavaScript', 9],
+  ['React', 8],
+]
+
+const Skill = ({ skill: [tech, level] }) => (
+  <li>
+    {tech} {level}
+  </li>
+)
+
+const Skills = ({ skills }) => {
+  console.log(skills)
+  const skillsList = skills.map( (skill, index) => <Skill skill={skill} key={index} />)
+  return (
+    <ul>{ skillsList }</ul>
+  )
+}
+
+const countries = [
+  { name: 'Finland', city: 'Helsinki' },
+  { name: 'Sweden', city: 'Stockholm' },
+  { name: 'Denmark', city: 'Copenhagen' },
+  { name: 'Norway', city: 'Oslo' },
+  { name: 'Iceland', city: 'Reykjavík' },
+]
+
+const Country = ({ country: {name, city} }) => (
+  <div>
+    <h1>{ name }</h1>
+    <p>{ city }</p>
+  </div>
+)
+
+const Countries = ({ countries }) => {
+  const countriesList = countries.map((country, index) => <Country country={country} key={index} />)
+  return (
+    <div>{ countriesList }</div>
+  )
+}
+
 // Main Component
 const Main = ({ user, techs, greetPeople, handleTime }) => (
   <main>
@@ -142,6 +186,8 @@ const Main = ({ user, techs, greetPeople, handleTime }) => (
       <RandomBgDiv bgStr={heaxColor()} />
       <RandomBgDiv bgStr={heaxColor()} />
       <RandomBgDiv bgStr={heaxColor()} />
+      <Skills skills={skills} />
+      <Countries countries={countries} />
     </div>
   </main>
 )
