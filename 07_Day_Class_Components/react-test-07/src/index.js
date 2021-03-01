@@ -156,6 +156,9 @@ class Main extends React.Component {
       addOne,
       minusOne,
       styles,
+      message,
+      loggedIn,
+      handleLogin
     } = this.props
 
     let backgroundColor = styles.backgroundColor === '#61dbfb' ? 'white' : '#2c3e50'
@@ -163,6 +166,7 @@ class Main extends React.Component {
       backgroundColor,
       color: styles.color
     }
+    let status = loggedIn ? <Welcome /> : <Login />
 
     return (
       <main style={_style}>
@@ -185,6 +189,10 @@ class Main extends React.Component {
           />
           <Count count={count} addOne={addOne} minusOne={minusOne} />
           <Country />
+          {status}
+          <Button text={loggedIn ? 'Logout' : 'Login'} style={buttonStyles} onClick={handleLogin}></Button>
+          {!loggedIn && <p>Please login to access more information about 30 Days Of React challenge</p>}
+          <Message message={message} />
         </div>
       </main>
     )
@@ -208,6 +216,24 @@ class Footer extends React.Component {
   }
 }
 
+let Login = () => (
+  <div>
+    <h3>Please login</h3>
+  </div>
+)
+
+let Welcome = () => (
+  <div>
+    <h3>Welcome to 30 days of react</h3>
+  </div>
+)
+
+const Message = ({ message }) => (
+  <div>
+    <h3>{message}</h3>
+  </div>
+)
+
 class App extends React.Component {
   state = {
     count: 0,
@@ -215,7 +241,15 @@ class App extends React.Component {
       backgroundColor: '#61dbfb',
       color: '#000000',
     },
+    loggedIn: false,
+    message: 'Click show time or Great pople to change me'
   }
+  handleLogin = () => {
+    this.setState({
+      loggedIn: !this.state.loggedIn
+    })
+  }
+
   showDate = (time) => {
     const months = [
       'January',
@@ -279,6 +313,7 @@ class App extends React.Component {
     // copying the author from data object to user variable using spread operator
     const user = { ...data.author, image: asabenehImage }
 
+
     return (
       <div className='app'>
         <Header data={data} styles={this.state.styles} />
@@ -292,6 +327,9 @@ class App extends React.Component {
           addOne={this.addOne}
           minusOne={this.minusOne}
           count={this.state.count}
+          loggedIn={this.state.loggedIn}
+          handleLogin={this.handleLogin}
+          message={this.state.message}
         />
         <Footer date={new Date()} styles={this.state.styles} />
       </div>
