@@ -27,7 +27,7 @@ class App extends Component {
     })
   }
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.day == 30) {
+    if (prevState.day === 30) {
       this.setState({
         congratulate: 'Congratulations,Challenge has been completed',
       })
